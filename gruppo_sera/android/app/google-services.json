@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "152725630980",
+    "project_id": "flutterfire-ui-codelab-e1a70",
+    "storage_bucket": "flutterfire-ui-codelab-e1a70.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:152725630980:android:2170a7ee42f6bf67a30551",
+        "android_client_info": {
+          "package_name": "com.example.gruppo_sera"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqkdYifDYxp0Asy5o94GOSKjApoTyzhOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
