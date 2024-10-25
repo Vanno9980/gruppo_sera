@@ -19,6 +19,7 @@ class _CalcettoPageState extends State<CalcettoPage> {
           firebaseService.addVoteC(selectedOptionC);
         } else if (selectedOptionC == 'no') {
           firebaseService.addVoteC(selectedOptionC);
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('A 25 anni? E a 40 che fai?')));
         } 
         selectedOptionC = null;
       });
