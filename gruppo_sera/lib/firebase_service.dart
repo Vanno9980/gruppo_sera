@@ -14,9 +14,13 @@ class FirebaseService {
 
       CollectionReference votes = _firestore.collection('voti_sera');
 
+      QuerySnapshot existingVotes = await _firestore.collection('voti_sera')
+        .where('userId', isEqualTo: userId)
+        .get();
+
       DateTime now = DateTime.now();
       DateTime startOfDay = DateTime(now.year, now.month, now.day);
-      QuerySnapshot existingVotes = await _firestore.collection('voti_sera')
+      QuerySnapshot existingVotesDay = await _firestore.collection('voti_sera')
         .where('userId', isEqualTo: userId)
         .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
         .get();
@@ -25,9 +29,17 @@ class FirebaseService {
         .where('userId', isEqualTo: userId)
         .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
         .get();
-
+      
       if (existingVotes.docs.isNotEmpty) {
-        String voteId = existingVotes.docs.first.id;
+        for (var vote in existingVotes.docs){
+          await votes.doc(vote.id).update({
+            'displayName': displayName, 
+          });
+        }
+      }
+
+      if (existingVotesDay.docs.isNotEmpty) {
+        String voteId = existingVotesDay.docs.first.id;
         await votes.doc(voteId).update({
           'vote': selectedOption,
           'timestamp': FieldValue.serverTimestamp(),  
@@ -68,6 +80,7 @@ class FirebaseService {
       if (existingVotes.docs.isNotEmpty) {
         String voteId = existingVotes.docs.first.id;
         await votes.doc(voteId).update({
+          'displayName': displayName,  
           'vote': selectedOption,
           'timestamp': FieldValue.serverTimestamp(),  
         });
@@ -103,6 +116,7 @@ class FirebaseService {
       if (existingVotes.docs.isNotEmpty) {
         String voteId = existingVotes.docs.first.id;
         await votes.doc(voteId).update({
+          'displayName': displayName,  
           'vote': selectedOptionC,
           'timestamp': FieldValue.serverTimestamp(),  
         });
@@ -119,12 +133,8 @@ class FirebaseService {
     }
   }
 
-  Stream<QuerySnapshot> getDailyVotesSera() {
-    DateTime now = DateTime.now();
-    DateTime startOfDay = DateTime(now.year, now.month, now.day);
-
+  Stream<QuerySnapshot> getTotalVotesSera() {
     return _firestore.collection('voti_sera')
-      .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
       .where('vote', isEqualTo: 'yes')
       .snapshots();
   }
@@ -142,10 +152,18 @@ class FirebaseService {
     DateTime now = DateTime.now();
     DateTime startOfDay = DateTime(now.year, now.month, now.day);
 
+    return _firestore.collection('voti_calcetto')
+      .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
+      .snapshots();
+  }
+
+  Stream<QuerySnapshot> getTotalVotesC() {
+    DateTime now = DateTime.now();
+    DateTime startOfDay = DateTime(now.year, now.month, now.day);
+
     print('Query voti sera dal: $startOfDay');
 
     return _firestore.collection('voti_calcetto')
-      .where('timestamp', isGreaterThanOrEqualTo: startOfDay)
       .where('vote', isEqualTo: 'yes')
       .snapshots();
   }

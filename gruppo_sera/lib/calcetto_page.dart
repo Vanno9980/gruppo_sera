@@ -117,12 +117,12 @@ class _CalcettoPageState extends State<CalcettoPage> {
                       title: Text('Partecipo'),
                       trailing: Text(yesVotesC.isNotEmpty ? yesVotesC.join(', ') : 'Nessun voto'),
                       ),
-                      ListTile(
+                    ListTile(
                         leading: Icon(Icons.cancel, color: Colors.red),
                         title: Text('Non partecipo'),
                         trailing: Text(noVotesC.isNotEmpty ? noVotesC.join(', ') : 'Nessun voto'),
                       ),
-                    ],
+                  ]
                   );
                 }
               ),

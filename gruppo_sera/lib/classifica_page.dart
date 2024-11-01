@@ -20,7 +20,7 @@ final FirebaseService firebaseService = FirebaseService();
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: firebaseService.getDailyVotesSera(),
+              stream: firebaseService.getTotalVotesSera(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
@@ -57,7 +57,7 @@ final FirebaseService firebaseService = FirebaseService();
           ),
           Expanded(
             child: StreamBuilder<QuerySnapshot>(
-              stream: firebaseService.getDailyVotesC(),
+              stream: firebaseService.getTotalVotesC(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(child: CircularProgressIndicator());
